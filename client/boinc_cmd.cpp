@@ -54,52 +54,52 @@ void version(){
 
 void usage() {
     fprintf(stderr, "\n\
-usage: boinccmd [--host hostname] [--passwd passwd] [--unix_domain] command\n\n\
+usage: boinccmd [--host hostname] [--passwd passwd] [--unix-domain] command\n\n\
 default hostname: localhost\n\
 default password: contents of gui_rpc_auth.cfg\n\
 Commands:\n\
- --acct_mgr attach URL name passwd  attach to account manager\n\
- --acct_mgr info                    show current account manager info\n\
- --acct_mgr sync                    synchronize with acct mgr\n\
- --acct_mgr detach                  detach from acct mgr\n\
- --client_version                   show client version\n\
- --create_account URL email passwd name\n\
- --file_transfer URL filename op    file transfer operation\n\
+ --acct-mgr attach URL name passwd  attach to account manager\n\
+ --acct-mgr info                    show current account manager info\n\
+ --acct-mgr sync                    synchronize with acct mgr\n\
+ --acct-mgr detach                  detach from acct mgr\n\
+ --client-version                   show client version\n\
+ --create-account URL email passwd name\n\
+ --file-transfer URL filename op    file transfer operation\n\
    op = retry | abort\n\
- --get_app_config URL               show app config for given project\n\
- --get_cc_status\n\
- --get_daily_xfer_history           show network traffic history\n\
- --get_disk_usage                   show disk usage\n\
- --get_file_transfers               show file transfers\n\
- --get_host_info\n\
- --get_message_count                show largest message seqno\n\
- --get_messages [ seqno ]           show messages > seqno\n\
- --get_notices [ seqno ]            show notices > seqno\n\
- --get_project_config URL\n\
- --get_project_status               show status of all attached projects\n\
- --get_proxy_settings\n\
- --get_simple_gui_info              show status of projects and active tasks\n\
- --get_state                        show entire state\n\
- --get_tasks                        show tasks\n\
- --get_old_tasks                    show reported tasks from last 1 hour\n\
- --join_acct_mgr URL name passwd    same as --acct_mgr attach\n\
- --lookup_account URL email passwd\n\
- --network_available                retry deferred network communication\n\
+ --get-app-config URL               show app config for given project\n\
+ --get-cc-status\n\
+ --get-daily-xfer-history           show network traffic history\n\
+ --get-disk-usage                   show disk usage\n\
+ --get-file-transfers               show file transfers\n\
+ --get-host-info\n\
+ --get-message-count                show largest message seqno\n\
+ --get-messages [ seqno ]           show messages > seqno\n\
+ --get-notices [ seqno ]            show notices > seqno\n\
+ --get-project-config URL\n\
+ --get-project-status               show status of all attached projects\n\
+ --get-proxy-settings\n\
+ --get-simple-gui-info              show status of projects and active tasks\n\
+ --get-state                        show entire state\n\
+ --get-tasks                        show tasks\n\
+ --get-old-tasks                    show reported tasks from last 1 hour\n\
+ --join-acct-mgr URL name passwd    same as --acct-mgr attach\n\
+ --lookup-account URL email passwd\n\
+ --network-available                retry deferred network communication\n\
  --project URL op                   project operation\n\
-   op = reset | detach | update | suspend | resume | nomorework | allowmorework | detach_when_done | dont_detach_when_done\n\
- --project_attach URL auth          attach to project\n\
+   op = reset | detach | update | suspend | resume | nomorework | allowmorework | detach-when-done | dont-detach-when-done\n\
+ --project-attach URL auth          attach to project\n\
  --quit                             tell client to exit\n\
- --quit_acct_mgr                    same as --acct_mgr detach\n\
- --read_cc_config\n\
- --read_global_prefs_override\n\
- --run_benchmarks\n\
- --set_gpu_mode mode duration       set GPU run mode for given duration\n\
+ --quit-acct-mgr                    same as --acct-mgr detach\n\
+ --read-cc-config\n\
+ --read-global-prefs-override\n\
+ --run-benchmarks\n\
+ --set-gpu-mode mode duration       set GPU run mode for given duration\n\
    mode = always | auto | never\n\
- --set_host_info product_name\n\
- --set_network_mode mode duration   set network mode for given duration\n\
+ --set-host-info product_name\n\
+ --set-network-mode mode duration   set network mode for given duration\n\
    mode = always | auto | never\n\
- --set_proxy_settings\n\
- --set_run_mode mode duration       set run mode for given duration\n\
+ --set-proxy-settings\n\
+ --set-run-mode mode duration       set run mode for given duration\n\
    mode = always | auto | never\n\
  --task url task_name op            task operation\n\
    op = suspend | resume | abort\n\
@@ -231,7 +231,7 @@ int main(int argc, char** argv) {
         i++;
     }
     if (i == argc) usage();
-    if (!strcmp(argv[i], "--unix_domain")) {
+    if (!(strcmp(argv[i], "--unix_domain") || strcmp(argv[i], "--unix-domain"))) {
         unix_domain = true;
         i++;
     }
@@ -278,21 +278,22 @@ int main(int argc, char** argv) {
     }
 
     char* cmd = next_arg(argc, argv, i);
-    if (!strcmp(cmd, "--client_version")) {
+    // TODO: put something here to convert any '_' in cmd to '-'
+    if (!strcmp(cmd, "--client-version")) {
         VERSION_INFO vi;
         retval = rpc.exchange_versions(vi);
         if (!retval) {
             printf("Client version: %d.%d.%d\n", vi.major, vi.minor, vi.release);
         }
-    } else if (!strcmp(cmd, "--get_state")) {
+    } else if (!strcmp(cmd, "--get-state")) {
         CC_STATE state;
         retval = rpc.get_state(state);
         if (!retval) state.print();
-    } else if (!strcmp(cmd, "--get_tasks")) {
+    } else if (!strcmp(cmd, "--get-tasks")) {
         RESULTS results;
         retval = rpc.get_results(results);
         if (!retval) results.print();
-    } else if (!strcmp(cmd, "--get_old_tasks")) {
+    } else if (!strcmp(cmd, "--get-old-tasks")) {
         vector<OLD_RESULT> ors;
         retval = rpc.get_old_results(ors);
         if (!retval) {
@@ -301,27 +302,27 @@ int main(int argc, char** argv) {
                 o.print();
             }
         }
-    } else if (!strcmp(cmd, "--get_file_transfers")) {
+    } else if (!strcmp(cmd, "--get-file-transfers")) {
         FILE_TRANSFERS ft;
         retval = rpc.get_file_transfers(ft);
         if (!retval) ft.print();
-    } else if (!strcmp(cmd, "--get_daily_xfer_history")) {
+    } else if (!strcmp(cmd, "--get-daily-xfer-history")) {
         DAILY_XFER_HISTORY dxh;
         retval = rpc.get_daily_xfer_history(dxh);
         if (!retval) dxh.print();
-    } else if (!strcmp(cmd, "--get_project_status")) {
+    } else if (!strcmp(cmd, "--get-project-status")) {
         PROJECTS ps;
         retval = rpc.get_project_status(ps);
         if (!retval) ps.print();
-    } else if (!strcmp(cmd, "--get_project_urls")) {
+    } else if (!strcmp(cmd, "--get-project-urls")) {
         PROJECTS ps;
         retval = rpc.get_project_status(ps);
         if (!retval) ps.print_urls();
-    } else if (!strcmp(cmd, "--get_simple_gui_info")) {
+    } else if (!strcmp(cmd, "--get-simple-gui-info")) {
         SIMPLE_GUI_INFO info;
         retval = rpc.get_simple_gui_info(info);
         if (!retval) info.print();
-    } else if (!strcmp(cmd, "--get_disk_usage")) {
+    } else if (!strcmp(cmd, "--get-disk-usage")) {
         DISK_USAGE du;
         retval = rpc.get_disk_usage(du);
         if (!retval) du.print();
@@ -346,6 +347,7 @@ int main(int argc, char** argv) {
         safe_strcpy(project.master_url, next_arg(argc, argv, i));
         canonicalize_master_url(project.master_url, sizeof(project.master_url));
         char* op = next_arg(argc, argv, i);
+        // TODO: replace '_' in op with '-'
         if (!strcmp(op, "reset")) {
             retval = rpc.project_op(project, "reset");
         } else if (!strcmp(op, "suspend")) {
@@ -360,20 +362,20 @@ int main(int argc, char** argv) {
             retval = rpc.project_op(project, "nomorework");
         } else if (!strcmp(op, "allowmorework")) {
             retval = rpc.project_op(project, "allowmorework");
-        } else if (!strcmp(op, "detach_when_done")) {
+        } else if (!strcmp(op, "detach-when-done")) {
             retval = rpc.project_op(project, "detach_when_done");
-        } else if (!strcmp(op, "dont_detach_when_done")) {
+        } else if (!strcmp(op, "dont-detach-when-done")) {
             retval = rpc.project_op(project, "dont_detach_when_done");
         } else {
             fprintf(stderr, "Unknown op %s\n", op);
         }
-    } else if (!strcmp(cmd, "--project_attach")) {
+    } else if (!strcmp(cmd, "--project-attach")) {
         char url[256];
         safe_strcpy(url, next_arg(argc, argv, i));
         canonicalize_master_url(url, sizeof(url));
         char* auth = next_arg(argc, argv, i);
         retval = rpc.project_attach(url, auth, "");
-    } else if (!strcmp(cmd, "--file_transfer")) {
+    } else if (!strcmp(cmd, "--file-transfer")) {
         FILE_TRANSFER ft;
 
         ft.project_url = next_arg(argc, argv, i);
@@ -386,7 +388,7 @@ int main(int argc, char** argv) {
         } else {
             fprintf(stderr, "Unknown op %s\n", op);
         }
-    } else if (!strcmp(cmd, "--set_run_mode")) {
+    } else if (!strcmp(cmd, "--set-run-mode")) {
         char* op = next_arg(argc, argv, i);
         double duration;
         if (i >= argc || (argv[i][0] == '-')) {
@@ -403,7 +405,7 @@ int main(int argc, char** argv) {
         } else {
             fprintf(stderr, "Unknown op %s\n", op);
         }
-    } else if (!strcmp(cmd, "--set_gpu_mode")) {
+    } else if (!strcmp(cmd, "--set-gpu-mode")) {
         char* op = next_arg(argc, argv, i);
         double duration;
         if (i >= argc || (argv[i][0] == '-')) {
@@ -420,13 +422,13 @@ int main(int argc, char** argv) {
         } else {
             fprintf(stderr, "Unknown op %s\n", op);
         }
-    } else if (!strcmp(cmd, "--set_host_info")) {
+    } else if (!strcmp(cmd, "--set-host-info")) {
         HOST_INFO h;
         memset(&h, 0, sizeof(h));
         char* pn = next_arg(argc, argv, i);
         safe_strcpy(h.product_name, pn);
         retval = rpc.set_host_info(h);
-    } else if (!strcmp(cmd, "--set_network_mode")) {
+    } else if (!strcmp(cmd, "--set-network-mode")) {
         char* op = next_arg(argc, argv, i);
         double duration;
         if (i >= argc || (argv[i][0] == '-')) {
@@ -443,11 +445,11 @@ int main(int argc, char** argv) {
         } else {
             fprintf(stderr, "Unknown op %s\n", op);
         }
-    } else if (!strcmp(cmd, "--get_proxy_settings")) {
+    } else if (!strcmp(cmd, "--get-proxy-settings")) {
         GR_PROXY_INFO pi;
         retval = rpc.get_proxy_settings(pi);
         if (!retval) pi.print();
-    } else if (!strcmp(cmd, "--set_proxy_settings")) {
+    } else if (!strcmp(cmd, "--set-proxy-settings")) {
         GR_PROXY_INFO pi;
         pi.http_server_name = next_arg(argc, argv, i);
         pi.http_server_port = atoi(next_arg(argc, argv, i));
@@ -462,13 +464,13 @@ int main(int argc, char** argv) {
         if (pi.http_user_name.size()) pi.use_http_authentication = true;
         if (pi.socks_server_name.size()) pi.use_socks_proxy = true;
         retval = rpc.set_proxy_settings(pi);
-    } else if (!strcmp(cmd, "--get_message_count")) {
+    } else if (!strcmp(cmd, "--get-message-count")) {
         int seqno;
         retval = rpc.get_message_count(seqno);
         if (!retval) {
             printf("Greatest message sequence number: %d\n", seqno);
         }
-    } else if (!strcmp(cmd, "--get_messages")) {
+    } else if (!strcmp(cmd, "--get-messages")) {
         int seqno;
         if (i == argc) {
             seqno = 0;
@@ -490,7 +492,7 @@ int main(int argc, char** argv) {
                 );
             }
         }
-    } else if (!strcmp(cmd, "--get_notices")) {
+    } else if (!strcmp(cmd, "--get-notices")) {
         int seqno;
         if (i == argc) {
             seqno = 0;
@@ -510,11 +512,11 @@ int main(int argc, char** argv) {
                 );
             }
         }
-    } else if (!strcmp(cmd, "--get_host_info")) {
+    } else if (!strcmp(cmd, "--get-host-info")) {
         HOST_INFO hi;
         retval = rpc.get_host_info(hi);
         if (!retval) hi.print();
-    } else if (!strcmp(cmd, "--acct_mgr")) {
+    } else if (!strcmp(cmd, "--acct-mgr")) {
         char* op = next_arg(argc, argv, i);
         if (!strcmp(op, "attach")) {
             char* am_url = next_arg(argc, argv, i);
@@ -532,16 +534,16 @@ int main(int argc, char** argv) {
         } else {
             printf("unknown operation %s\n", op);
         }
-    } else if (!strcmp(cmd, "--join_acct_mgr")) {
+    } else if (!strcmp(cmd, "--join-acct-mgr")) {
         char* am_url = next_arg(argc, argv, i);
         char* am_name = next_arg(argc, argv, i);
         char* am_passwd = next_arg(argc, argv, i);
         acct_mgr_do_rpc(rpc, am_url, am_name, am_passwd);
-    } else if (!strcmp(cmd, "--quit_acct_mgr")) {
+    } else if (!strcmp(cmd, "--quit-acct-mgr")) {
         retval = rpc.acct_mgr_rpc("", "", "");
-    } else if (!strcmp(cmd, "--run_benchmarks")) {
+    } else if (!strcmp(cmd, "--run-benchmarks")) {
         retval = rpc.run_benchmarks();
-    } else if (!strcmp(cmd, "--get_project_config")) {
+    } else if (!strcmp(cmd, "--get-project-config")) {
         char* gpc_url = next_arg(argc, argv,i);
         retval = rpc.get_project_config(string(gpc_url));
         if (!retval) {
@@ -562,7 +564,7 @@ int main(int argc, char** argv) {
                 }
             }
         }
-    } else if (!strcmp(cmd, "--lookup_account")) {
+    } else if (!strcmp(cmd, "--lookup-account")) {
         ACCOUNT_IN lai;
         lai.url = next_arg(argc, argv, i);
         lai.email_addr = next_arg(argc, argv, i);
@@ -587,7 +589,7 @@ int main(int argc, char** argv) {
                 }
             }
         }
-    } else if (!strcmp(cmd, "--create_account")) {
+    } else if (!strcmp(cmd, "--create-account")) {
         ACCOUNT_IN cai;
         cai.url = next_arg(argc, argv, i);
         cai.email_addr = next_arg(argc, argv, i);
@@ -613,14 +615,14 @@ int main(int argc, char** argv) {
                 }
             }
         }
-    } else if (!strcmp(cmd, "--read_global_prefs_override")) {
+    } else if (!strcmp(cmd, "--read-global-prefs-override")) {
         retval = rpc.read_global_prefs_override();
-    } else if (!strcmp(cmd, "--read_cc_config")) {
+    } else if (!strcmp(cmd, "--read-cc-config")) {
         retval = rpc.read_cc_config();
         printf("retval %d\n", retval);
-    } else if (!strcmp(cmd, "--network_available")) {
+    } else if (!strcmp(cmd, "--network-available")) {
         retval = rpc.network_available();
-    } else if (!strcmp(cmd, "--set_app_config")) {
+    } else if (!strcmp(cmd, "--set-app-config")) {
         // for testing purposes only
         //
         APP_CONFIGS ac;
@@ -630,7 +632,7 @@ int main(int argc, char** argv) {
         a.max_concurrent = 2;
         ac.app_configs.push_back(a);
         retval = rpc.set_app_config(next_arg(argc, argv, i), ac);
-    } else if (!strcmp(cmd, "--get_app_config")) {
+    } else if (!strcmp(cmd, "--get-app-config")) {
         APP_CONFIGS ac;
         retval = rpc.get_app_config(next_arg(argc, argv, i), ac);
         if (!retval) {
@@ -638,7 +640,7 @@ int main(int argc, char** argv) {
             mf.init_file(stdout);
             ac.write(mf);
         }
-    } else if (!strcmp(cmd, "--get_cc_status")) {
+    } else if (!strcmp(cmd, "--get-cc-status")) {
         CC_STATUS cs;
         retval = rpc.get_cc_status(cs);
         if (!retval) {

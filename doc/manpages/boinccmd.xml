@@ -131,6 +131,8 @@
 
   <refsect1>
     <title>COMMANDS</title>
+      <para>For compatibility, any commands and options may use '_'
+        (underscores) instead of '-' (hyphens).</para>
 
     <refsect2>
       <title>Account query and attach</title>
@@ -138,7 +140,7 @@
       <variablelist>
         <varlistentry>
           <term>
-            <option>--lookup_account</option>
+            <option>--lookup-account</option>
             <replaceable>URL</replaceable>
             <replaceable>email</replaceable>
             <replaceable>passwd</replaceable>
@@ -150,7 +152,7 @@
 
         <varlistentry>
           <term>
-            <option>--create_account</option>
+            <option>--create-account</option>
             <replaceable>URL</replaceable>
             <replaceable>email</replaceable>
             <replaceable>passwd</replaceable>
@@ -164,20 +166,20 @@
 
         <varlistentry>
           <term>
-            <option>--project_attach</option>
+            <option>--project-attach</option>
             <replaceable>URL</replaceable>
             <replaceable>account_key</replaceable>
           </term>
           <listitem>
               <para>Attach to an account using the project URL and authenticator
-                (send via email after <option>--create_account</option> was
+                (send via email after <option>--create-account</option> was
                 successful).</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
           <term>
-            <option>--join_acct_mgr</option>
+            <option>--join-acct-mgr</option>
             <replaceable>URL</replaceable>
             <replaceable>name</replaceable>
             <replaceable>passwd</replaceable>
@@ -190,7 +192,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term><option>--quit_acct_mgr</option></term>
+          <term><option>--quit-acct-mgr</option></term>
           <listitem>
             <para>Detach from the current account manager.</para>
           </listitem>
@@ -203,21 +205,21 @@
 
       <variablelist>
         <varlistentry>
-          <term><option>--get_state</option></term>
+          <term><option>--get-state</option></term>
           <listitem>
             <para>Show complete client state.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term><option>--get_cc_status</option></term>
+          <term><option>--get-cc-status</option></term>
 	      <listitem>
             <para>Show only current CPU, GPU and network modes.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term><option>--get_tasks</option></term>
+          <term><option>--get-tasks</option></term>
           <listitem>
             <para>Show all tasks of the client (in progress, waiting and
               completed only). Tasks that where reported to the project server
@@ -226,35 +228,35 @@
         </varlistentry>
 
         <varlistentry>
-          <term><option>--get_simple_gui_info</option></term>
+          <term><option>--get-simple-gui-info</option></term>
           <listitem>
             <para>Show status of projects and active tasks.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term><option>--get_file_transfers</option></term>
+          <term><option>--get-file-transfers</option></term>
           <listitem>
             <para>Show all current file transfers.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term><option>--get_project_status</option></term>
+          <term><option>--get-project-status</option></term>
           <listitem>
             <para>Show status of all projects.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term><option>--get_disk_usage</option></term>
+          <term><option>--get-disk-usage</option></term>
           <listitem>
             <para>Show disk usage of all projects.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term><option>--get_proxy_settings</option></term>
+          <term><option>--get-proxy-settings</option></term>
           <listitem>
             <para>Get proxy settings.</para>
           </listitem>
@@ -262,7 +264,7 @@
 
         <varlistentry>
           <term>
-            <option>--get_messages</option> <replaceable>seqno</replaceable>
+            <option>--get-messages</option> <replaceable>seqno</replaceable>
           </term>
           <listitem>
             <para>Show messages with sequence numbers beyond
@@ -272,7 +274,7 @@
 
 	<varlistentry>
           <term>
-            <option>--get_message_count</option>
+            <option>--get-message-count</option>
           </term>
           <listitem>
             <para>Show largest message sequence number.</para>
@@ -281,7 +283,7 @@
 
 	<varlistentry>
           <term>
-            <option>--get_notices</option> <replaceable>seqno</replaceable>
+            <option>--get-notices</option> <replaceable>seqno</replaceable>
           </term>
           <listitem>
             <para>Show project notices with sequence numbers beyond
@@ -290,7 +292,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term><option>--get_host_info</option></term>
+          <term><option>--get-host-info</option></term>
           <listitem>
             <para>Show system information about the host where the BOINC
               client is running.</para>
@@ -298,7 +300,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term><option>--get_daily_xfer_history</option></term>
+          <term><option>--get-daily-xfer-history</option></term>
           <listitem>
             <para>Show network traffic history of the BOINC client.</para>
           </listitem>
@@ -314,7 +316,7 @@
           <term>
             <option>--task</option>
             <replaceable>URL</replaceable>
-            <replaceable>task_name</replaceable>
+            <replaceable>task-name</replaceable>
             {suspend | resume | abort}
           </term>
           <listitem>
@@ -350,7 +352,7 @@
             <option>--project</option>
             <replaceable>URL</replaceable>
             {reset | detach | update | suspend | resume | nomorework
-            | allowmorework | detach_when_done | dont_detach_when_done}
+            | allowmorework | detach-when-done | dont-detach-when-done}
           </term>
           <listitem>
             <para>Do operation on a project, identified by its master
@@ -409,16 +411,16 @@
               </varlistentry>
 
               <varlistentry>
-                <term><option>detach_when_done</option></term>
+                <term><option>detach-when-done</option></term>
                 <listitem>
                   <para>Detach project after all tasks are finished.</para>
                 </listitem>
               </varlistentry>
 
               <varlistentry>
-                <term><option>dont_detach_when_done</option></term>
+                <term><option>dont-detach-when-done</option></term>
                 <listitem>
-                  <para>Undo <option>detach_when_done</option>.</para>
+                  <para>Undo <option>detach-when-done</option>.</para>
                 </listitem>
               </varlistentry>
             </variablelist>
@@ -427,7 +429,7 @@
 
         <varlistentry>
           <term>
-            <option>--file_transfer</option>
+            <option>--file-transfer</option>
             <replaceable>URL</replaceable>
             <replaceable>filename</replaceable>
             {retry | abort}
@@ -454,7 +456,7 @@
 
         <varlistentry>
           <term>
-            <option>--set_run_mode</option>
+            <option>--set-run-mode</option>
             {always | auto | never}
             <optional><replaceable>duration</replaceable></optional>
           </term>
@@ -492,31 +494,31 @@
 
         <varlistentry>
           <term>
-            <option>--set_network_mode</option>
+            <option>--set-network-mode</option>
             {always | auto | never}
             <optional><replaceable>duration</replaceable></optional>
           </term>
           <listitem>
-            <para>Set network mode. Like <option>--set_run_mode</option> but
+            <para>Set network mode. Like <option>--set-run-mode</option> but
               applies to network transfers only.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
           <term>
-            <option>--set_gpu_mode</option>
+            <option>--set-gpu-mode</option>
             {always | auto | never}
             <optional><replaceable>duration</replaceable></optional>
           </term>
           <listitem>
-            <para>Set GPU mode. Like <option>--set_run_mode</option> but
+            <para>Set GPU mode. Like <option>--set-run-mode</option> but
               applies to GPU processing only.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
           <term>
-            <option>--set_proxy_settings</option>
+            <option>--set-proxy-settings</option>
             <replaceable>http_server_name</replaceable>
             <replaceable>http_server_port</replaceable>
             <replaceable>http_user_name</replaceable>
@@ -533,14 +535,14 @@
         </varlistentry>
 
         <varlistentry>
-          <term><option>--run_benchmarks</option></term>
+          <term><option>--run-benchmarks</option></term>
           <listitem>
             <para>Run CPU benchmarks.</para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term><option>--read_global_prefs_override</option></term>
+          <term><option>--read-global-prefs-override</option></term>
           <listitem>
             <para>Tell the client to read the
               <filename>global_prefs_override.xml</filename> file and
@@ -556,7 +558,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term><option>--read_cc_config</option></term>
+          <term><option>--read-cc-config</option></term>
           <listitem>
             <para>Tell the client to reread the configuration file
               (<filename>cc_config.xml</filename>).</para>
@@ -565,7 +567,7 @@
 
         <varlistentry>
           <term>
-            <option>--get_project_config</option>
+            <option>--get-project-config</option>
             <replaceable>URL</replaceable>
           </term>
           <listitem>
@@ -575,7 +577,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term><option>--network_available</option></term>
+          <term><option>--network-available</option></term>
 	      <listitem>
             <para>Tell the client to retry deferred network communication.</para>
           </listitem>
